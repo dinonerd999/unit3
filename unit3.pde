@@ -17,7 +17,14 @@ int circleX;
 int circleY;
 int R;
 int G;
-
+int B;
+PGraphics pg;
+PGraphics canvas;
+//int dragging;
+int x;
+int y;
+int CH;
+int CW;
 void setup() {
   circleDrawToggle=0;
   thickness=5;
@@ -31,16 +38,25 @@ void setup() {
   circle(75, 100, 100);
   fill(red);
   circle(75, 250, 100);
+  pg= createGraphics(1000, 700);
+  canvas= createGraphics(1000, 700);
 }
 
 void draw() {
+
+  //background(180, 173,173);
+  
+  canvas.beginDraw();
+  canvas.fill(activeColor);
+  
+  //canvas.background(180, 173, 173);
     
   println(circleDrawToggle);
   
   
   
   fill(255, 255, 255);
-  rect(0, 0, 300, 50);
+  rect(0, 0, 500, 50);
   rect(0, 0, 150, 700);
   textSize(10);
   fill(0);
@@ -48,18 +64,24 @@ void draw() {
   text(R, 175, 25);
   text("green", 205, 25);
   text(G, 230, 25);
+  text("blue", 260, 25);
+  text(B, 280, 25);
   strokeWeight(3);
   fill(255);
   rect(190, 10, 10, 15);
   rect(190, 25, 10, 15);
   rect(245, 25, 10, 15);
   rect(245, 10, 10, 15);
+  rect(300, 10, 10, 15);
+  rect(300, 25, 10, 15);
   noStroke();
   fill(0);
   triangle(190, 25, 195, 12, 200, 25);
   triangle(190, 25, 195, 37, 200, 25);
   triangle(245, 25, 250, 12, 255, 25);
   triangle(245, 25, 250, 37, 255, 25);
+  triangle(300, 25, 305, 12, 310, 25);
+  triangle(300, 25, 305, 37, 310, 25);
   
   
   strokeWeight(10);
@@ -92,10 +114,10 @@ void draw() {
   
   if (mouseX>150 && mousePressed && circleDrawToggle==0) {
     if (circleDrawToggle==0){
-    stroke(activeColor);
-    strokeWeight(thickness);
-    line(pmouseX,pmouseY, mouseX,mouseY);
-    noStroke();
+    canvas.stroke(activeColor);
+    canvas.strokeWeight(thickness);
+    canvas.line(pmouseX,pmouseY, mouseX,mouseY);
+    canvas.noStroke();
     }
   }
   if (mousePressed && mouseX>50 && mouseX<105 && mouseY>630 && mouseY<660) {
@@ -140,12 +162,61 @@ void draw() {
     
   }
   
+  if (mousePressed && mouseX>245 && mouseX<255 && mouseY<25 && mouseY>10) {
+    G=G+1;
+    if (G>=255) {
+      G=255;
+    }
+  }
   
+  if (mousePressed && mouseX>300 && mouseX<310 && mouseY<25 && mouseY>10) {
+    B=B+1;
+    if(B>=255) {
+      B=255;
+    }
+    
+  }
   
-  
+  if (mousePressed && mouseX>300 && mouseX<310 && mouseY>25 && mouseY<40) {
+    B=B-1;
+    if (B<=0) {
+     B=0; 
+    }
+  }
+  fill(R, G, B);
+  circle(350, 25, 30);
+  canvas.endDraw();
+  image(canvas, 0, 0);
+  image(pg, 0, 0);                    
+}
+
+
+
+void mouseDragged() {
+  //dragging=1;
+    if (dist(75, slider, mouseX, mouseY)<=25 && mouseY>=350 && mouseY <=500) {
+      slider= mouseY;
+      thickness=(slider-350)/2;
+  }
+    if(mouseX>150 && circleDrawToggle==1){
+      pg.beginDraw();
+      pg.clear();
+      pg.fill(activeColor);
+      pg.stroke(0);
+      pg.circle(circleX, circleY, (dist(circleX, circleY, mouseX, mouseY)*2));
+      pg.endDraw();
+      //image(pg, 0, 0);                    
+      }
+      
 }
 
 void mouseReleased() {
+  if (circleDrawToggle==1) {
+    canvas.circle(x, y, dist(x, y, mouseX, mouseY)*2);
+  }
+  //if (dragging==1) {
+    
+  //}
   if (dist(75, 100, mouseX, mouseY) < 50) {
     activeColor=blue;
   }
@@ -154,18 +225,7 @@ void mouseReleased() {
   if (dist(75, 250, mouseX, mouseY) < 50) {
     activeColor=red;
   }
-}
-
-void mouseDragged() {
-    if (dist(75, slider, mouseX, mouseY)<=25 && mouseY>=350 && mouseY <=500) {
-      slider= mouseY;
-      thickness=(slider-350)/2;
-  }
-    if(mouseX>150 && circleDrawToggle==1){
-      fill(activeColor);
-      circle(circleX, circleY, (dist(circleX, circleY, mouseX, mouseY)*2));
-                            
-}
+  //dragging=0;
 }
 void mousePressed() {
   circleX=mouseX;
@@ -180,7 +240,10 @@ void mousePressed() {
   }
 }
 
- 
+void mouseClicked() {
+  x=mouseX;
+  y=mouseY;
+}
  
  
  
