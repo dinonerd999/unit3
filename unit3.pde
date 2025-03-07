@@ -1,4 +1,3 @@
-ArrayList<Integer> keys = new ArrayList<Integer>();
 
 color blue = #416EDE;
 color red = #ED1111;
@@ -20,95 +19,115 @@ int G;
 int B;
 PGraphics pg;
 PGraphics canvas;
-//int dragging;
+PGraphics interphace;
 int x;
 int y;
-int CH;
-int CW;
+int c;
+
 void setup() {
+  
   circleDrawToggle=0;
   thickness=5;
   slider=350;
-  fill(#C4C4C4);
-  rect(0, 0, 1000, 700);
+  //fill(#C4C4C4);
+  //rect(0, 0, 1000, 700);
   size(1000, 700);
-  fill(255, 255, 255);
-  rect(0, 0, 150, 700);
-  fill(blue);
-  circle(75, 100, 100);
-  fill(red);
-  circle(75, 250, 100);
+  //fill(255, 255, 255);
+  //rect(0, 0, 150, 700);
+  //fill(blue);
+  //circle(75, 100, 100);
+  //fill(red);
+  //circle(75, 250, 100);
   pg= createGraphics(1000, 700);
   canvas= createGraphics(1000, 700);
+  interphace= createGraphics(1000, 700);
 }
 
 void draw() {
+  
+  interphace.beginDraw();
+  interphace.clear();
+  
+  interphace.fill(#C4C4C4);
+  
+  
+  interphace.fill(255, 255, 255);
+  interphace.rect(0, 0, 150, 700);
+  interphace.fill(blue);
+  interphace.circle(75, 100, 100);
+  interphace.fill(red);
+  interphace.circle(75, 250, 100);
 
-  //background(180, 173,173);
+  
   
   canvas.beginDraw();
   canvas.fill(activeColor);
   
-  //canvas.background(180, 173, 173);
+  
     
-  println(circleDrawToggle);
+  println(c, circleDrawToggle);
   
   
   
-  fill(255, 255, 255);
-  rect(0, 0, 500, 50);
-  rect(0, 0, 150, 700);
-  textSize(10);
-  fill(0);
-  text("red", 160, 25);
-  text(R, 175, 25);
-  text("green", 205, 25);
-  text(G, 230, 25);
-  text("blue", 260, 25);
-  text(B, 280, 25);
-  strokeWeight(3);
-  fill(255);
-  rect(190, 10, 10, 15);
-  rect(190, 25, 10, 15);
-  rect(245, 25, 10, 15);
-  rect(245, 10, 10, 15);
-  rect(300, 10, 10, 15);
-  rect(300, 25, 10, 15);
-  noStroke();
-  fill(0);
-  triangle(190, 25, 195, 12, 200, 25);
-  triangle(190, 25, 195, 37, 200, 25);
-  triangle(245, 25, 250, 12, 255, 25);
-  triangle(245, 25, 250, 37, 255, 25);
-  triangle(300, 25, 305, 12, 310, 25);
-  triangle(300, 25, 305, 37, 310, 25);
+  interphace.fill(255, 255, 255);
+  interphace.rect(0, 0, 500, 50);
+  interphace.rect(0, 0, 150, 700);
+  interphace.textSize(10);
+  interphace.fill(0);
+  interphace.text("red", 160, 25);
+  interphace.text(R, 175, 25);
+  interphace.text("green", 205, 25);
+  interphace.text(G, 230, 25);
+  interphace.text("blue", 260, 25);
+  interphace.text(B, 280, 25);
+  interphace.strokeWeight(3);
+  interphace.fill(255);
+  interphace.rect(190, 10, 10, 15);
+  interphace.rect(190, 25, 10, 15);
+  interphace.rect(245, 25, 10, 15);
+  interphace.rect(245, 10, 10, 15);
+  interphace.rect(300, 10, 10, 15);
+  interphace.rect(300, 25, 10, 15);
+  interphace.noStroke();
+  interphace.fill(0);
+  interphace.triangle(190, 25, 195, 12, 200, 25);
+  interphace.triangle(190, 25, 195, 37, 200, 25);
+  interphace.triangle(245, 25, 250, 12, 255, 25);
+  interphace.triangle(245, 25, 250, 37, 255, 25);
+  interphace.triangle(300, 25, 305, 12, 310, 25);
+  interphace.triangle(300, 25, 305, 37, 310, 25);
   
   
-  strokeWeight(10);
-  fill(blue);
+  interphace.strokeWeight(10);
+  interphace.fill(blue);
   if (dist(75, 100, mouseX, mouseY)<=50) {
-    stroke(255);
+    interphace.stroke(255);
   } else {
-    stroke(0);
+    interphace.stroke(0);
   }
-  circle(75, 100, 100);
+  interphace.circle(75, 100, 100);
   if (dist(75, 250, mouseX, mouseY)<=50) {
-    stroke(255);
+    interphace.stroke(255);
   } else {
-    stroke(0);
+    interphace.stroke(0);
   }
   
-  fill(red);
-  circle(75, 250, 100);
+  interphace.fill(red);
+  interphace.circle(75, 250, 100);
   if (dist(75, 600, mouseX, mouseY)<20) {
-    stroke(255);
+    interphace.stroke(255);
   }  else {
-    stroke(0);
+    interphace.stroke(0);
   
   }
-  fill(142, 137, 137);
-  circle(75, 600, 40);
-  stroke(0);
+  
+  if (dist(350, 25, mouseX, mouseY) < 15) {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// finish dis
+  }
+   
+  interphace.fill(142, 137, 137);
+  interphace.circle(75, 600, 40);
+  interphace.stroke(0);
 
   
   
@@ -118,26 +137,26 @@ void draw() {
     canvas.strokeWeight(thickness);
     canvas.line(pmouseX,pmouseY, mouseX,mouseY);
     canvas.noStroke();
-    }
+    } 
   }
   if (mousePressed && mouseX>50 && mouseX<105 && mouseY>630 && mouseY<660) {
-    fill(#C4C4C4);
-    rect(150, 0, 850, 700);
+    interphace.fill(#C4C4C4);
+    interphace.rect(150, 0, 850, 700);
   }
-  fill(0);
-  textSize(20);
-  rect(50, 630, 55, 30);
-  strokeWeight(10);
-  fill(255);
-  text("Delete", 50, 650);
+  interphace.fill(0);
+  interphace.textSize(20);
+  interphace.rect(50, 630, 55, 30);
+  interphace.strokeWeight(10);
+  interphace.fill(255);
+  interphace.text("Delete", 50, 650);
   
-  stroke(0);
-  strokeWeight(10);
-  line(75, 350, 75, 500);
-  fill(255);
-  strokeWeight(3);
-  stroke(0);
-  circle(75, slider, 25);
+  interphace.stroke(0);
+  interphace.strokeWeight(10);
+  interphace.line(75, 350, 75, 500);
+  interphace.fill(255);
+  interphace.strokeWeight(3);
+  interphace.stroke(0);
+  interphace.circle(75, slider, 25);
   
   if (mousePressed && mouseX>190 && mouseX<200 && mouseY>10 && mouseY<25) {
     
@@ -183,17 +202,43 @@ void draw() {
      B=0; 
     }
   }
-  fill(R, G, B);
-  circle(350, 25, 30);
+  
+  
+  
+  if(mouseX>150 && circleDrawToggle==1 && mousePressed){
+      pg.beginDraw();
+      pg.clear();
+      pg.fill(activeColor);
+      pg.stroke(0);
+      pg.circle(circleX, circleY, (dist(circleX, circleY, mouseX, mouseY)*2));
+      
+      pg.endDraw();                
+      }
+  if (circleDrawToggle==1 && c==2) {
+    canvas.circle(x, y, dist(mouseX, mouseY, x, y)*2);
+  }
+  background(#B7AEAE);
+  
+  interphace.fill(R, G, B);
+  interphace.circle(350, 25, 30);
+  if (mousePressed && dist(mouseX, mouseY, 350, 25)<15) {
+    activeColor= color(R,G,B);
+  }
+  canvas.image(canvas, 0, 0);
   canvas.endDraw();
+  interphace.endDraw();
+  image(pg, 0, 0);
   image(canvas, 0, 0);
-  image(pg, 0, 0);                    
+  image(interphace, 0, 0);
+  
+  
+  c=0;      
 }
 
 
 
 void mouseDragged() {
-  //dragging=1;
+  
     if (dist(75, slider, mouseX, mouseY)<=25 && mouseY>=350 && mouseY <=500) {
       slider= mouseY;
       thickness=(slider-350)/2;
@@ -205,29 +250,36 @@ void mouseDragged() {
       pg.stroke(0);
       pg.circle(circleX, circleY, (dist(circleX, circleY, mouseX, mouseY)*2));
       pg.endDraw();
-      //image(pg, 0, 0);                    
+      
+      
       }
       
 }
 
 void mouseReleased() {
+  
   if (circleDrawToggle==1) {
-    canvas.circle(x, y, dist(x, y, mouseX, mouseY)*2);
+    c=2;
   }
-  //if (dragging==1) {
-    
-  //}
+  
   if (dist(75, 100, mouseX, mouseY) < 50) {
     activeColor=blue;
   }
+  
   
 
   if (dist(75, 250, mouseX, mouseY) < 50) {
     activeColor=red;
   }
-  //dragging=0;
-}
+  
+  }
+
 void mousePressed() {
+  x=mouseX;
+  y=mouseY;
+  if (circleDrawToggle==1) {
+    c=1;
+  }
   circleX=mouseX;
   circleY=mouseY;
     if (dist(75, 600, mouseX, mouseY)<20 && mousePressed) {
@@ -238,12 +290,15 @@ void mousePressed() {
     circleDrawToggle=0;
   }
   }
+  
 }
 
 void mouseClicked() {
-  x=mouseX;
-  y=mouseY;
-}
+  
+
+  }
+
+
  
  
  
