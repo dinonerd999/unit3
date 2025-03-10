@@ -140,8 +140,10 @@ void draw() {
     } 
   }
   if (mousePressed && mouseX>50 && mouseX<105 && mouseY>630 && mouseY<660) {
-    interphace.fill(#C4C4C4);
-    interphace.rect(150, 0, 850, 700);
+    canvas.clear();
+    //canvas.fill(#C4C4C4);
+    //canvas.rect(150, 0, 850, 700);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   interphace.fill(0);
   interphace.textSize(20);
@@ -257,7 +259,9 @@ void mouseDragged() {
 }
 
 void mouseReleased() {
-  
+  pg.beginDraw();
+  pg.clear();
+  pg.endDraw();
   if (circleDrawToggle==1) {
     c=2;
   }
