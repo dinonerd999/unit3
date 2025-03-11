@@ -23,9 +23,11 @@ PGraphics interphace;
 int x;
 int y;
 int c;
+PImage A;
+int AD;
 
 void setup() {
-  
+  A = loadImage("A.png");
   circleDrawToggle=0;
   thickness=5;
   slider=350;
@@ -55,6 +57,7 @@ void draw() {
   interphace.rect(0, 0, 150, 700);
   interphace.fill(blue);
   interphace.circle(75, 100, 100);
+  
   interphace.fill(red);
   interphace.circle(75, 250, 100);
 
@@ -121,9 +124,7 @@ void draw() {
   
   }
   
-  if (dist(350, 25, mouseX, mouseY) < 15) {
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// finish dis
-  }
+  
    
   interphace.fill(142, 137, 137);
   interphace.circle(75, 600, 40);
@@ -132,12 +133,15 @@ void draw() {
   
   
   if (mouseX>150 && mousePressed && circleDrawToggle==0) {
-    if (circleDrawToggle==0){
+    if (circleDrawToggle==0 && AD==0){
     canvas.stroke(activeColor);
     canvas.strokeWeight(thickness);
     canvas.line(pmouseX,pmouseY, mouseX,mouseY);
     canvas.noStroke();
     } 
+    if (AD==1) {
+      canvas.image(A, mouseX-50, mouseY-50, 100, 100);
+    }
   }
   if (mousePressed && mouseX>50 && mouseX<105 && mouseY>630 && mouseY<660) {
     canvas.clear();
@@ -205,6 +209,14 @@ void draw() {
     }
   }
   
+  if (mousePressed && dist(mouseX, mouseY, 75, 540)<35) {
+    if (AD==0) {
+      AD=1;
+    } else {
+      AD=0;
+    }
+    
+  }
   
   
   if(mouseX>150 && circleDrawToggle==1 && mousePressed){
@@ -228,6 +240,7 @@ void draw() {
   }
   canvas.image(canvas, 0, 0);
   canvas.endDraw();
+  interphace.image(A, 25, 490, 100, 100);
   interphace.endDraw();
   image(pg, 0, 0);
   image(canvas, 0, 0);
@@ -267,13 +280,17 @@ void mouseReleased() {
   }
   
   if (dist(75, 100, mouseX, mouseY) < 50) {
-    activeColor=blue;
-  }
+    
+    
+    selectInput("Pick an image to load", "imageLoad");
+    
+  } 
   
   
 
   if (dist(75, 250, mouseX, mouseY) < 50) {
     activeColor=red;
+    selectOutput("Choose a name for your own image file", "saveImage");
   }
   
   }
@@ -297,10 +314,24 @@ void mousePressed() {
   
 }
 
-void mouseClicked() {
+void saveImage(File f) {
+  if (f !=null) {
+    PImage save = get( 150, 50, 850, 750);
+    save.save(f.getAbsolutePath());
+}
+}
   
-
+void loadImage(File f) {
+  if (f !=null) {
+    int n=0;
+    while (n<10) {
+      PImage pic = loadImage(f.getPath());
+      canvas.image(pic, 0, 0);
+      n = n + 1;
+    }
   }
+}
+  
 
 
  
