@@ -56,10 +56,14 @@ void draw() {
   interphace.fill(255, 255, 255);
   interphace.rect(0, 0, 150, 700);
   interphace.fill(blue);
+  interphace.textSize(20);
+  
   interphace.circle(75, 100, 100);
+
   
   interphace.fill(red);
   interphace.circle(75, 250, 100);
+  
 
   
   
@@ -68,7 +72,7 @@ void draw() {
   
   
     
-  println(c, circleDrawToggle);
+  //println(c, circleDrawToggle);
   
   
   
@@ -238,6 +242,13 @@ void draw() {
   if (mousePressed && dist(mouseX, mouseY, 350, 25)<15) {
     activeColor= color(R,G,B);
   }
+  
+  interphace.fill(red);
+  interphace.text("load", 60, 105);
+  
+  interphace.fill(blue);
+  interphace.text("save", 60, 255);
+  
   canvas.image(canvas, 0, 0);
   canvas.endDraw();
   interphace.image(A, 25, 490, 100, 100);
@@ -282,7 +293,7 @@ void mouseReleased() {
   if (dist(75, 100, mouseX, mouseY) < 50) {
     
     
-    selectInput("Pick an image to load", "imageLoad");
+    selectInput("Pick an image to load", "loadImage");
     
   } 
   
@@ -324,10 +335,13 @@ void saveImage(File f) {
 void loadImage(File f) {
   if (f !=null) {
     int n=0;
-    while (n<10) {
+    while (n<20) {
       PImage pic = loadImage(f.getPath());
+      canvas.beginDraw();
       canvas.image(pic, 0, 0);
+      canvas.endDraw();
       n = n + 1;
+      println(n);
     }
   }
 }
