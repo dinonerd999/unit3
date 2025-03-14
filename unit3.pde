@@ -31,22 +31,16 @@ void setup() {
   circleDrawToggle=0;
   thickness=5;
   slider=350;
-  //fill(#C4C4C4);
-  //rect(0, 0, 1000, 700);
+  
   size(1000, 700);
-  //fill(255, 255, 255);
-  //rect(0, 0, 150, 700);
-  //fill(blue);
-  //circle(75, 100, 100);
-  //fill(red);
-  //circle(75, 250, 100);
+  
   pg= createGraphics(1000, 700);
   canvas= createGraphics(1000, 700);
   interphace= createGraphics(1000, 700);
 }
 
 void draw() {
-  
+  ////////////////////////////////////////////////////////////drawing interface
   interphace.beginDraw();
   interphace.clear();
   
@@ -69,11 +63,6 @@ void draw() {
   
   canvas.beginDraw();
   canvas.fill(activeColor);
-  
-  
-    
-  //println(c, circleDrawToggle);
-  
   
   
   interphace.fill(255, 255, 255);
@@ -133,7 +122,7 @@ void draw() {
   interphace.fill(142, 137, 137);
   interphace.circle(75, 600, 40);
   interphace.stroke(0);
-
+////////////////////////////////////////////////////////////////////////////////////////////// drawing
   
   
   if (mouseX>150 && mousePressed && circleDrawToggle==0) {
@@ -149,9 +138,7 @@ void draw() {
   }
   if (mousePressed && mouseX>50 && mouseX<105 && mouseY>630 && mouseY<660) {
     canvas.clear();
-    //canvas.fill(#C4C4C4);
-    //canvas.rect(150, 0, 850, 700);
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////// more interphace
   }
   interphace.fill(0);
   interphace.textSize(20);
@@ -167,7 +154,7 @@ void draw() {
   interphace.strokeWeight(3);
   interphace.stroke(0);
   interphace.circle(75, slider, 25);
-  
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////// Color selector
   if (mousePressed && mouseX>190 && mouseX<200 && mouseY>10 && mouseY<25) {
     
     R=R+1;
@@ -221,7 +208,7 @@ void draw() {
     }
     
   }
-  
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////// circle previewthig
   
   if(mouseX>150 && circleDrawToggle==1 && mousePressed){
       pg.beginDraw();
@@ -241,15 +228,16 @@ void draw() {
   interphace.circle(350, 25, 30);
   if (mousePressed && dist(mouseX, mouseY, 350, 25)<15) {
     activeColor= color(R,G,B);
+    AD=0;
   }
-  
+  //////////////////////////////////////////////////////////////////////////////////////drawing all layers
   interphace.fill(red);
   interphace.text("load", 60, 105);
   
   interphace.fill(blue);
   interphace.text("save", 60, 255);
   
-  canvas.image(canvas, 0, 0);
+  //canvas.image(canvas, 0, 0);
   canvas.endDraw();
   interphace.image(A, 25, 490, 100, 100);
   interphace.endDraw();
@@ -264,7 +252,7 @@ void draw() {
 
 
 void mouseDragged() {
-  
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////  circle drawing
     if (dist(75, slider, mouseX, mouseY)<=25 && mouseY>=350 && mouseY <=500) {
       slider= mouseY;
       thickness=(slider-350)/2;
@@ -276,13 +264,15 @@ void mouseDragged() {
       pg.stroke(0);
       pg.circle(circleX, circleY, (dist(circleX, circleY, mouseX, mouseY)*2));
       pg.endDraw();
-      
+      canvas.image(pg, 0, 0);
+            
       
       }
       
 }
 
 void mouseReleased() {
+  /////////////////////////////////////////////////////////////////////circle drawing and load/save image
   pg.beginDraw();
   pg.clear();
   pg.endDraw();
@@ -307,6 +297,7 @@ void mouseReleased() {
   }
 
 void mousePressed() {
+  ///////////////////////////////////////////////////////////////////////// more circle
   x=mouseX;
   y=mouseY;
   if (circleDrawToggle==1) {
@@ -324,21 +315,22 @@ void mousePressed() {
   }
   
 }
-
+////////////////////////////////////////////////////////////////////////////////////////// save image
 void saveImage(File f) {
   if (f !=null) {
-    PImage save = get( 150, 50, 850, 750);
+    PImage save = canvas.get( 150, 50, 850, 750);
     save.save(f.getAbsolutePath());
 }
 }
-  
+//////////////////////////////////////////////////////////////////////////////////////////// load image
 void loadImage(File f) {
   if (f !=null) {
+    println("M");
     int n=0;
-    while (n<20) {
+    while (n<10) {
       PImage pic = loadImage(f.getPath());
       canvas.beginDraw();
-      canvas.image(pic, 0, 0);
+      canvas.image(pic, 150, 50);
       canvas.endDraw();
       n = n + 1;
       println(n);
